@@ -3,178 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>最終演出アニメーション</title>
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100dvh;
-      overflow: hidden;
-      scroll-behavior: smooth;
-    }
-
-    section {
-      height: 100dvh;
-      width: 100vw;
-      scroll-snap-align: start;
-    }
-
-    .container {
-      position: relative;
-      width: 100vw;
-      height: 100dvh;
-      background: black;
-      overflow: hidden;
-    }
-
-    .ripple {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 30px;
-      height: 10px;
-      border-radius: 50%;
-      border: 3px solid;
-      transform: translate(-50%, -50%) scale(0);
-      opacity: 0.6;
-      animation: ripple 3s ease-out forwards;
-    }
-
-    @keyframes ripple {
-      0% { transform: translate(-50%, -50%) scale(0); opacity: 0.6; }
-      100% { transform: translate(-50%, -50%) scale(20, 5); opacity: 0; }
-    }
-
-    .bg-change {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: transparent;
-      top: 0;
-      left: 0;
-      animation: bgFade 1s ease-in forwards;
-      animation-delay: 6s;
-    }
-
-    @keyframes bgFade {
-      0% { background: transparent; }
-      100% { background: violet; }
-    }
-
-    .side-light {
-      position: absolute;
-      top: 50%;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      box-shadow: 0 0 10px;
-      opacity: 0;
-      animation: sideMove 1s linear forwards;
-      z-index: 10;
-    }
-
-    @keyframes sideMove {
-      0% { left: 0%; opacity: 0; }
-      10% { opacity: 1; }
-      90% { opacity: 1; }
-      100% { left: 100%; opacity: 0; }
-    }
-
-    .light1 { background: violet; animation-delay: 7.5s; }
-    .light2 { background: blue;   animation-delay: 7.7s; }
-    .light3 { background: yellow; animation-delay: 7.9s; }
-    .light4 { background: red;    animation-delay: 8.1s; }
-    .light5 { background: green;  animation-delay: 8.3s; }
-
-    .falling-light {
-      position: absolute;
-      top: 0;
-      left: 50%;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: white;
-      box-shadow: 0 0 60px white;
-      transform: translateX(-50%);
-      animation: slowFall 2.5s linear forwards;
-      animation-delay: 9s;
-      z-index: 11;
-      opacity: 0;
-    }
-
-    @keyframes slowFall {
-      0%   { top: 0; opacity: 0; }
-      10%  { opacity: 1; }
-      90%  { opacity: 1; }
-      100% { top: calc(100% + 40px); opacity: 0; }
-    }
-
-    /* 暗転レイヤー */
-    .fade-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: black;
-      opacity: 0;
-      pointer-events: none;
-      z-index: 9999;
-      transition: opacity 1s ease;
-    }
-
-    .fade-overlay.show {
-      opacity: 1;
-    }
-
-    /* スライド2 */
-    .container2 {
-      display: flex;
-      flex-direction: row;
-      width: 100vw;
-      height: 100dvh;
-      flex-wrap: nowrap;
-    }
-
-    .color-block {
-      flex: 1;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-
-    .color-block:nth-child(1) { background: magenta; }
-    .color-block:nth-child(2) { background: yellow; }
-    .color-block:nth-child(3) { background: red; }
-    .color-block:nth-child(4) { background: lime; }
-    .color-block:nth-child(5) { background: cyan; }
-
-    .final-img {
-      max-width: 80%;
-      max-height: 80%;
-      width: auto;
-      height: auto;
-      object-fit: contain;
-      z-index: 2;
-    }
-
-    @media (max-width: 768px) {
-      .container2 {
-        flex-direction: column;
-      }
-
-      .color-block {
-        width: 100%;
-        height: 20%;
-      }
-    }
-
-    /* スライド1非表示クラス */
-    body.slide2-locked #slide1 {
-      display: none;
-    }
-  </style>
+  <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
 
@@ -204,20 +33,19 @@
     <div class="color-block"><img src="right2.png"  class="final-img"></div>
   </section>
 
+
+  <div class="menu" id="menu">
+  メニュー
+    <div class="menu-links" id="menuLinks">
+      <a href="play.html">遊び方</a>
+      <a href="result.html">戦績</a>
+      <a href="member.html">詳細</a>
+    </div>
+  </div>
+
+
   <div class="fade-overlay" id="fadeOverlay"></div>
 
-  <script>
-    setTimeout(() => {
-      const fade = document.getElementById("fadeOverlay");
-      fade.classList.add("show"); // 暗転（11.5秒）
-
-      // 1秒後（12.5秒）：明転＆スライド移動＆スライド1非表示
-      setTimeout(() => {
-        fade.classList.remove("show"); // 明転
-        document.getElementById("slide2").scrollIntoView({ behavior: "smooth" });
-        document.body.classList.add("slide2-locked"); // スライド1を非表示
-      }, 1000);
-    }, 11500);
-  </script>
+  <script src="js/index.js"></script>
 </body>
 </html>
